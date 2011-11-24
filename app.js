@@ -22,7 +22,13 @@ app.post('/jobs/add', function (req, res) {
 
     res.send(tempHtml);
 
-    scheduler.add(jso, 
+    scheduler.add(jso, false, 0, true, function (msg) {
+        alert(msg);
+    });
+
+    scheduler.process(function (msg) {
+        alert(msg);
+    });
 
 });
 

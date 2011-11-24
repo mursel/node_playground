@@ -16,7 +16,7 @@ exports.init = function (fn) {
     }
 }
 
-exports.add = function (job_data, isDelayed, seconds, removeOnComplete, fn) {    
+exports.add = function (job_data, isDelayed, seconds, removeOnComplete, fn) {
     if (typeof seconds == undefined) {
         seconds = 1;    // default 1 sekunda
     }
@@ -29,8 +29,8 @@ exports.add = function (job_data, isDelayed, seconds, removeOnComplete, fn) {
                 tip: job_data.tip_racuna,
                 partner: job_data.partner,
                 items: job_data.items
-            }).delay(seconds * 1000).save();    
-            jobs.promote();    
+            }).delay(seconds * 1000).save();
+            jobs.promote();
         } else {
             zadatak = jobs.create('job_name', {
                 tip: job_data.tip_racuna,
@@ -41,8 +41,10 @@ exports.add = function (job_data, isDelayed, seconds, removeOnComplete, fn) {
         if (removeOnComplete) {
             zadatak.on('complete', function () {
                 zadatak.remove();
+                fn("job completed!");
             });
         }
+        fn("job added!");
     }
 }
 
@@ -51,6 +53,7 @@ exports.process = function (fn) {
         var data = job.data;
         setTimeout(function () {
             done();
+            fn("process func!");
         }, 5000);
     });
 }
