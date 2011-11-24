@@ -1,0 +1,26 @@
+expressjs i kue test
+
+pokrenuti sa:
+
+node app.js
+
+primjer sam testirao sa slijedecim jquery kodom:
+
+$(document).ready(function () {
+	jQuery.support.cors = true; // ie fix
+	var jspodaci = '[{"br":"1", "ime":"neko", "prezime":"nekoviæ"},{"br":"2", "ime":"neko2", "prezime":"nekoviæ2"}]';
+	$.ajax({
+		url: "http://localhost:5511/handle",
+		type: 'POST',
+		data: { "podaci": jspodaci },
+		async:false,
+		success: function (data) {
+			$("#p1").html(data);
+		},
+		error: function (data, errs, errt) {
+			alert(data);
+			alert(errs);
+			alert(errt);
+		}
+	});
+});
