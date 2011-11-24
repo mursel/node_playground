@@ -16,9 +16,9 @@ app.post('/jobs/add', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
-    var jso = JSON.parse(req.param("podaci"));
+    var jso = JSON.parse(req.param("racun"));
 
-    var tempHtml = "<br>" + jso[j].br + "<br>" + jso[j].ime + "<br>" + jso[j].prezime + "<br>";
+    var tempHtml = "<br>" + jso.podaci.tip + "<br>";
 
     res.send(tempHtml);
 
