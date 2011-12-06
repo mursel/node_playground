@@ -1,18 +1,22 @@
 var kue = require('./lib/kue');
 var util = require('util');
 
-// kue.app.listen(3000);
-
 var jobs =  undefined;
 var Job = undefined;
+var tempData = "> ";
 
-exports.init = function (fn) {
-    jobs =  kue.createQueue(),
+exports.init = function (showGUI, fn) {
+    jobs = kue.createQueue(),
             Job = kue.Job;
+
     if (jobs == null) {
         fn("Problem creating queue!");
     } else {
         fn("Queue created!");
+    }
+    if (showGUI) {
+        kue.app.listen(3000);
+        fn("GUI available on port 3000");
     }
 }
 
@@ -72,4 +76,16 @@ exports.removeById = function (id, fn) {
             fn("job '" + id + "' removed!");
         });
     });
+}
+
+exports.primjer = function (opcije) {
+    var default_opcije = {
+        "ime": "Mursel",
+        "prezime": "Musabasic"
+    }
+    for (var i in opcije) {
+        if (opcije[i] == undefined) {
+            opcije[i] = default_opcije[i];
+        }
+    }
 }
