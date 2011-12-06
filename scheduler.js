@@ -20,20 +20,32 @@ exports.init = function (showGUI, fn) {
     }
 }
 
-exports.add = function (job_data, isDelayed, seconds, removeOnComplete, fn) {
-    if (typeof seconds == undefined) {
-        seconds = 1;    // default 1 sekunda
+exports.add = function (opcije, fn) {
+
+    var default_opcije = {
+        "data": {},
+        "delayed": false,
+        "seconds": 1,
+        "removeOnComplete": false
     }
+
+    for (var arg in default_opcije) {
+        if (typeof opcije[arg] == "undefined")
+            opcije[arg] = default_opcije[arg];
+    }
+
     var zadatak = undefined;
-    if (job_data == undefined || job_data == null) {
+
+    if (opcije["data"] == "undefined" || opcije["data"] == null) {
         fn("job_data undefined or empty");
     } else {
-        if (isDelayed) {
+        var job_data = opcije["data"];
+        if (opcije["delayed"]) {
             zadatak = jobs.create('job_name', {
                 tip: job_data.tip_racuna,
                 partner: job_data.partner,
                 items: job_data.items
-            }).delay(seconds * 1000).save();
+            }).delay(opcije["seconds"] * 1000).save();
             jobs.promote();
         } else {
             zadatak = jobs.create('job_name', {
@@ -42,7 +54,7 @@ exports.add = function (job_data, isDelayed, seconds, removeOnComplete, fn) {
                 items: job_data.items
             }).save();
         }
-        if (removeOnComplete) {
+        if (opcije["removeOnComplete"]) {
             zadatak.on('complete', function () {
                 zadatak.remove();
                 fn("job completed!");
@@ -76,19 +88,4 @@ exports.removeById = function (id, fn) {
             fn("job '" + id + "' removed!");
         });
     });
-}
-
-exports.primjer = function (opcije) {
-    var default_opcije = {
-        "ime": "Mursel",
-        "prezime": "Musabasic"
-    }
-    for (var i in opcije) {
-        if (typeof opcije[i] == undefined) {
-            opcije[i] = default_opcije[i];
-        }
-    }
-    for (var j in opcije) {
-        console.log(i + "=" + opcije[i]);
-    }
 }
