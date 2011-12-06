@@ -84,8 +84,11 @@ exports.primjer = function (opcije) {
         "prezime": "Musabasic"
     }
     for (var i in opcije) {
-        if (opcije[i] == undefined) {
+        if (typeof opcije[i] == undefined) {
             opcije[i] = default_opcije[i];
         }
+    }
+    for (var j in opcije) {
+        console.log(i + "=" + opcije[i]);
     }
 }
