@@ -27,7 +27,10 @@ app.post('/jobs/add', function (req, res) {
 
     res.send(tempHtml);
 
-    scheduler.add(jso, false, 0, true, function (msg) {
+    scheduler.add({
+        "data": jso,
+        "removeOnComplete": true
+    }, function (msg) {
         console.log(msg);
     });
 
