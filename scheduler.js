@@ -24,6 +24,7 @@ exports.add = function (opcije, fn) {
 
     var default_opcije = {
         "data": {},
+        "priority": 'normal',
         "delayed": false,
         "seconds": 1,
         "removeOnComplete": false
@@ -45,21 +46,29 @@ exports.add = function (opcije, fn) {
                 tip: job_data.tip_racuna,
                 partner: job_data.partner,
                 items: job_data.items
-            }).delay(opcije["seconds"] * 1000).save();
+            }).delay(opcije["seconds"] * 1000);
             jobs.promote();
         } else {
             zadatak = jobs.create('job_name', {
                 tip: job_data.tip_racuna,
                 partner: job_data.partner,
                 items: job_data.items
-            }).save();
+            });
         }
+
+        if (opcije["priority"] != "undefined") {
+            zadatak.priority(opcije["priority"]);
+        }
+
         if (opcije["removeOnComplete"]) {
             zadatak.on('complete', function () {
                 zadatak.remove();
                 fn("job completed!");
             });
         }
+
+        zadatak.save();
+        
         fn("job added!");
     }
 }

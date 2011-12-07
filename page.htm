@@ -7,7 +7,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             jQuery.support.cors = true; // ie fix
-            var jspodaci = '{    "podaci": {        "tip": "standard",        "partner": {            "id": "p1",            "desc": "opis ide ovdje",            "pdv_broj": "1122334455"        }    },    "items": [        {            "id": "item1",            "desc": "opis itema 1",            "quantity": "2",            "price": "10.5"        },        {            "id": "item2",            "desc": "opis itema 2",            "quantity": "0",            "price": "11.522"        },        {            "id": "item3",            "desc": "opis itema 3",            "quantity": "12",            "price": "111"        }    ]';
+            var jspodaci = '{    "podaci": {        "tip": "standard",        "partner": {            "id": "p1",            "desc": "opis ide ovdje",            "pdv_broj": "1122334455"        }    },    "items": [        {            "id": "item1",            "desc": "opis itema 1",            "quantity": "2",            "price": "10.5"        },        {            "id": "item2",            "desc": "opis itema 2",            "quantity": "0",            "price": "11.522"        },        {            "id": "item3",            "desc": "opis itema 3",            "quantity": "12",            "price": "111"        }    ] }';
             $.ajax({
                 url: "http://localhost:5511/jobs/add",
                 type: 'POST',

@@ -23,7 +23,15 @@ app.post('/jobs/add', function (req, res) {
     var tempHtml = "Tip računa: " + jso.podaci.tip + "<br>";
     tempHtml += "PartnerId: " + jso.podaci.partner.id + "<br>";
     tempHtml += "PartnerDesc: " + jso.podaci.partner.desc + "<br>";
-    tempHtml += "PartnerPdvBroj: " + jso.podaci.partner.pdv_broj + "<br>";
+    tempHtml += "PartnerPdvBroj: " + jso.podaci.partner.pdv_broj + "<br><br>";
+
+    for (var item in jso.items) {
+        tempHtml += "<hr>";
+        tempHtml += "ItemId: " + jso.items[item].id + "<br>";
+        tempHtml += "ItemDesc: " + jso.items[item].desc + "<br>";
+        tempHtml += "ItemQuantity: " + jso.items[item].quantity + "<br>";
+        tempHtml += "ItemPrice: " + jso.items[item].price + "<br>";
+    }
 
     res.send(tempHtml);
 
