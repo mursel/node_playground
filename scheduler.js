@@ -55,9 +55,7 @@ exports.add = function (opcije, fn) {
             });
         }
 
-        if (opcije["priority"] != "undefined") {
-            zadatak.priority(opcije["priority"]);
-        }
+        zadatak.priority(opcije["priority"]);
 
         if (opcije["removeOnComplete"]) {
             zadatak.on('complete', function () {
