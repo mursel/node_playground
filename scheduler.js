@@ -1,5 +1,4 @@
 var kue = require('./lib/kue');
-var util = require('util');
 
 var jobs =  undefined;
 var Job = undefined;
