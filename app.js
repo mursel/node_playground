@@ -1,5 +1,6 @@
 var express = require('express');
 var scheduler = require('./scheduler');
+var fileio = require('./fileio');
 
 var app = express.createServer();
 
@@ -36,15 +37,34 @@ app.post('/jobs/add', function (req, res) {
     res.send(tempHtml);
 
     scheduler.add({
+        "job_name": 'job1',
         "data": jso,
         "removeOnComplete": true
     }, function (msg) {
         console.log(msg);
     });
 
-    scheduler.process(function (msg) {
+    scheduler.add({
+        "job_name": 'job2',
+        "data": jso,
+        "removeOnComplete": true
+    }, function (msg) {
         console.log(msg);
     });
+
+    scheduler.process("job1", function (data) {
+        console.log("Process!");
+    });
+
+    scheduler.process("job2", function (data) {
+        console.log("Process!");
+    });
+
+    fileio.init("test.txt", true, "utf8", function (msg) {
+        console.log(msg);
+    });
+
+    fileio.write("OVO JE SAMO TEST!");
 
 });
 
