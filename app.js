@@ -53,19 +53,30 @@ app.post('/jobs/add', function (req, res) {
     });
 
     scheduler.process("job1", function (data) {
-        console.log("Process!");
+        tempHtml += "<hr>";
+        tempHtml += "ItemId: " + data.id + "<br>";
+        tempHtml += "ItemDesc: " + data.desc + "<br>";
+        tempHtml += "ItemQuantity: " + data.quantity + "<br>";
+        tempHtml += "ItemPrice: " + data.price + "<br>";
+        res.send(tempHtml);
     });
 
     scheduler.process("job2", function (data) {
-        console.log("Process!");
+        console.log(data);
     });
 
     fileio.init("test.txt", true, "utf8", function (msg) {
         console.log(msg);
     });
 
-    fileio.write("OVO JE SAMO TEST!");
+    fileio.write("OVO JE SAMO TEST ŽĆČĐŠ!");
 
 });
 
 app.listen(5511);
+
+function fib(broj) {
+    if (broj == 0) return 0;
+    if (broj == 1) return 1;
+    return fib(broj - 1) + fib(broj - 2);
+}
